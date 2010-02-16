@@ -1,0 +1,16 @@
+#summary Features in TurboSignals
+#labels features
+
+= Introduction =
+
+Below is an incomplete list of features in TurboSignals.
+
+
+= Details =
+
+ * Optimized signal classes for 0-10 parameters as well as var args
+ * Slot interfaces for all signals
+ * Function slots for all signals so you can use any function as a callback
+ * Full unit test suite to ensure correctness using AsUnit: http://www.asunit.org
+ * Full performance testing suite to measure implementation speed of TurboSignals as well as alternatives (EventDispatcher/Event, as3signals)
+ * Open source under the MIT license (see License section below)
