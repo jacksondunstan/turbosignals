@@ -1,0 +1,40 @@
+=================================================
+2.2 Ghz Intel Core 2 Duo, 2 GB RAM, Mac OS X 10.6
+=================================================
+
+as3ignals (0 parameters)
+	1 listener: 954
+	10 listeners: 2568
+as3ignals (1 parameter)
+	1 listener: 1158
+	10 listeners: 2908
+as3ignals (2 parameters)
+	1 listener: 1326
+	10 listeners: 3394
+as3ignals (3 parameters)
+	1 listener: 1418
+	10 listeners: 3656
+as3ignals (4 parameters)
+	1 listener: 1534
+	10 listeners: 3918
+as3ignals (5 parameters)
+	1 listener: 1696
+	10 listeners: 4249
+as3ignals (6 parameters)
+	1 listener: 1818
+	10 listeners: 4535
+as3ignals (7 parameters)
+	1 listener: 1951
+	10 listeners: 4805
+as3ignals (8 parameters)
+	1 listener: 2055
+	10 listeners: 5354
+as3ignals (9 parameters)
+	1 listener: 2467
+	10 listeners: 6288
+as3ignals (10 parameters)
+	1 listener: 2740
+	10 listeners: 6912
+EventDispatcher/Event
+	1 listener: 4886
+	10 listeners: 33755
