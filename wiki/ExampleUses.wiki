@@ -1,0 +1,12 @@
+#summary Example Uses Where Speed is Good
+
+= Introduction =
+
+Below are some examples of where speed would be very important in an signals/slots system.
+
+
+= Details =
+
+ * Hundreds or thousands of game entities (eg. enemies, players) dispatching every frame (eg. position change)
+ * Timers dispatching to hundreds or thousands of listeners every frame
+ * Tickers telling hundreds or thousands of objects to update every frame
