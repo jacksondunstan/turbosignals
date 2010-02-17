@@ -495,41 +495,57 @@ package
 		}
 		
 		[Test]
-		public function add_two_slots_dispatch_first_adds_third_and_third_not_called(): void
+		public function dispatch_within_dispatch_does_not_allow_changes(): void
 		{
-			var oneCalled:Boolean;
-			var twoCalled:Boolean;
-			var threeCalled:Boolean;
+			var numTimesGoodSlotCalled:int;
 			
-			var one:Slot5 = new FunctionSlot5(
+			var goodSlot:FunctionSlot5 = new FunctionSlot5(
 				function(arg1:*, arg2:*, arg3:*, arg4:*, arg5:*): void
 				{
-					oneCalled = true;
-					signal.addSlot(three);
+					numTimesGoodSlotCalled++;
 				}
 			);
 			
-			var two:Slot5 = new FunctionSlot5(
-				function(arg1:*, arg2:*, arg3:*, arg4:*, arg5:*): void
-				{
-					twoCalled = true;
-				}
-			);
+			var redispatched:Boolean;
 			
-			var three:Slot5 = new FunctionSlot5(
-				function(arg1:*, arg2:*, arg3:*, arg4:*, arg5:*): void
-				{
-					threeCalled = true;
-				}
+			this.signal.addSlot(
+				new FunctionSlot5(
+					function(arg1:*, arg2:*, arg3:*, arg4:*, arg5:*): void
+					{
+						if (!redispatched) 
+						{
+							
+							redispatched = true;
+							
+							// Dispatch again before goodSlot is called back
+							// Should call us again, but the if check means we
+							// won't do anything. Then should call goodSlot and
+							// continue...
+							signal.dispatch(null, null, null, null, null);
+							
+							// ...here. Remove goodSlot, but it should still get
+							// called back because we're back in the initial
+							// dispatch and we're not supposed to be able to
+							// change what gets called back during a dispatch.
+							signal.removeSlot(goodSlot);
+							
+							// Add a slot that should never get called because
+							// we never dispatch again.
+							signal.addSlot(
+								new FunctionSlot5(
+									function(arg1:*, arg2:*, arg3:*, arg4:*, arg5:*): void
+									{
+										fail();
+									}
+								)
+							);
+						}
+					}
+				)
 			);
-			
-			this.signal.addSlot(one);
-			this.signal.addSlot(two);
-			this.signal.dispatch(null, null, null, null, null);;
-			assertTrue(oneCalled);
-			assertTrue(twoCalled);
-			assertFalse(threeCalled);
-			assertEquals(3, this.signal.numSlots);
+			this.signal.addSlot(goodSlot);
+			this.signal.dispatch(null, null, null, null, null);
+			assertEquals(2, numTimesGoodSlotCalled);
 		}
 	}
 }
