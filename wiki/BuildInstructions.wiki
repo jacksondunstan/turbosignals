@@ -1,0 +1,19 @@
+#summary How To Build TurboSignals
+
+= Introduction =
+
+The bin folder should already have TurboSignals.swc in it, but below is how to build it yourself.
+
+
+= Details =
+
+ * Get the <a href="http://opensource.adobe.com/wiki/display/flexsdk/Flex+SDK">Flex SDK</a> from Adobe.
+ * Set the FLEX_HOME variable in build.properties to where you installed the Flex SDK
+ * Install the <a href="http://java.sun.com">Java JDK</a> (development kit) from Sun.
+ * Install <a href="http://ant.apache.org/bindownload.cgi">Ant</a> from Apache.
+ * Run Ant like this:
+   * `ant libDebug` (release version of the library)
+   * `ant libRelease` (debug version of the library)
+   * `ant correctnessTests` (unit tests to verify correctness of the library)
+   * `ant performanceTests` (tests to measure performance of the library)
+   * `ant alternativesPerformanceTests` (tests to measure performance of alternative signal/slot implementations)
