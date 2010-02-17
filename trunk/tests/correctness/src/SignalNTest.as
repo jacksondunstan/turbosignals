@@ -541,5 +541,59 @@ package
 			assertFalse(threeCalled);
 			assertEquals(3, this.signal.numSlots);
 		}
+		
+		[Test]
+		public function dispatch_within_dispatch_does_not_allow_changes(): void
+		{
+			var numTimesGoodSlotCalled:int;
+			
+			var goodSlot:FunctionSlotN = new FunctionSlotN(
+				function(...args): void
+				{
+					numTimesGoodSlotCalled++;
+				}
+			);
+			
+			var redispatched:Boolean;
+			
+			this.signal.addSlot(
+				new FunctionSlotN(
+					function(...args): void
+					{
+						if (!redispatched) 
+						{
+							
+							redispatched = true;
+							
+							// Dispatch again before goodSlot is called back
+							// Should call us again, but the if check means we
+							// won't do anything. Then should call goodSlot and
+							// continue...
+							signal.dispatch(null, null, null, null, null, null, null, null, null, null);
+							
+							// ...here. Remove goodSlot, but it should still get
+							// called back because we're back in the initial
+							// dispatch and we're not supposed to be able to
+							// change what gets called back during a dispatch.
+							signal.removeSlot(goodSlot);
+							
+							// Add a slot that should never get called because
+							// we never dispatch again.
+							signal.addSlot(
+								new FunctionSlotN(
+									function(...args): void
+									{
+										fail();
+									}
+								)
+							);
+						}
+					}
+				)
+			);
+			this.signal.addSlot(goodSlot);
+			this.signal.dispatch(null, null, null, null, null, null, null, null, null, null);
+			assertEquals(2, numTimesGoodSlotCalled);
+		}
 	}
 }
