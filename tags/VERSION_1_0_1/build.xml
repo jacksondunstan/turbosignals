@@ -1,0 +1,104 @@
+<project name="TurboSignals" basedir="." default="libDebug">
+	<property file="build.properties"/>
+	
+	<target name="libDebug" description="Build the TurboSignals library">
+		<java jar="${FLEX_HOME}/lib/compc.jar" fork="true" failonerror="true">
+			<arg value="+flexlib=${FLEX_HOME}/frameworks" />
+			<arg value="-source-path+=src" />
+			<arg value="-verbose-stacktraces" />
+			<arg value="-incremental" />
+			<arg value="-include-sources=src/com/jacksondunstan/signals" />
+			<arg value="-output=bin/TurboSignals.swc" />
+		</java>
+	</target>
+	
+	<target name="libRelease" description="Build the TurboSignals library">
+		<java jar="${FLEX_HOME}/lib/compc.jar" fork="true" failonerror="true">
+			<arg value="+flexlib=${FLEX_HOME}/frameworks" />
+			<arg value="-source-path+=src" />
+			<arg value="-optimize" />
+			<arg value="-include-sources=src/com/jacksondunstan/signals" />
+			<arg value="-output=bin/TurboSignals.swc" />
+		</java>
+	</target>
+	
+	<target name="correctnessTests" depends="libDebug" description="Build the TurboSignals correctness tests">
+		<java jar="${FLEX_HOME}/lib/mxmlc.jar" fork="true" failonerror="true">
+			<arg value="+flexlib=${FLEX_HOME}/frameworks" />
+			<arg value="-source-path+=tests/correctness/src" />
+			<arg value="-verbose-stacktraces" />
+			<arg value="-incremental" />
+			<arg value="-library-path+=libs/asunit4-alpha.swc" />
+			<arg value="-library-path+=bin/TurboSignals.swc" />
+			<arg value="-output=tests/correctness/bin/TestCorrectness.swf" />
+			<arg value="tests/correctness/src/TestCorrectness.as" />
+		</java>
+	</target>
+	
+	<target name="performanceTests" depends="libRelease" description="Build the TurboSignals performance tests">
+		<java jar="${FLEX_HOME}/lib/mxmlc.jar" fork="true" failonerror="true">
+			<arg value="+flexlib=${FLEX_HOME}/frameworks" />
+			<arg value="-source-path+=tests/performance/src" />
+			<arg value="-optimize" />
+			<arg value="-library-path=bin/TurboSignals.swc" />
+			<arg value="-output=tests/performance/bin/TestPerformance.swf" />
+			<arg value="tests/performance/src/TestPerformance.as" />
+		</java>
+	</target>
+	
+	<target name="alternativesPerformanceTests" depends="libRelease" description="Build the TurboSignals performance tests">
+		<java jar="${FLEX_HOME}/lib/mxmlc.jar" fork="true" failonerror="true">
+			<arg value="+flexlib=${FLEX_HOME}/frameworks" />
+			<arg value="-source-path+=tests/performance/alternatives/src" />
+			<arg value="-optimize" />
+			<arg value="-library-path=bin/TurboSignals.swc" />
+			<arg value="-output=tests/performance/alternatives/bin/TestAlternativesPerformance.swf" />
+			<arg value="tests/performance/alternatives/src/TestAlternativesPerformance.as" />
+		</java>
+	</target>
+	
+	<target name="asdoc" description="Create API docs for TurboSignals">
+		<java jar="${FLEX_HOME}/lib/asdoc.jar" fork="true" failonerror="true">
+			<arg value="+flexlib=${FLEX_HOME}/frameworks" />
+			<arg line="-doc-sources src/com/jacksondunstan/signals"/>
+			<arg line="-source-path src"/>
+			<arg line="-output doc/asdoc"/>
+			<arg line="-window-title 'TurboSignals'"/>
+			<arg line="-main-title 'TurboSignals'"/>
+		</java>
+	</target>
+	
+	<target name="clean" description="Delete all build files">
+		<delete>
+			<fileset dir="bin" includes="**/*.swf" />
+			<fileset dir="bin" includes="**/*.swf.cache" />
+			<fileset dir="bin" includes="**/*.swc" />
+			<fileset dir="bin" includes="**/*.swc.cache" />
+			<fileset dir="tests/correctness/bin" includes="**/*.swf" />
+			<fileset dir="tests/correctness/bin" includes="**/*.swf.cache" />
+			<fileset dir="tests/correctness/bin" includes="**/*.swc" />
+			<fileset dir="tests/correctness/bin" includes="**/*.swc.cache" />
+			<fileset dir="tests/performance/bin" includes="**/*.swf" />
+			<fileset dir="tests/performance/bin" includes="**/*.swf.cache" />
+			<fileset dir="tests/performance/bin" includes="**/*.swc" />
+			<fileset dir="tests/performance/bin" includes="**/*.swc.cache" />
+			<fileset dir="tests/performance/alternatives/bin" includes="**/*.swf" />
+			<fileset dir="tests/performance/alternatives/bin" includes="**/*.swf.cache" />
+			<fileset dir="tests/performance/alternatives/bin" includes="**/*.swc" />
+			<fileset dir="tests/performance/alternatives/bin" includes="**/*.swc.cache" />
+		</delete>
+	</target>
+	
+	<target name="cleanCache" description="Delete all incremental build files">
+		<delete>
+			<fileset dir="bin" includes="**/*.swf.cache" />
+			<fileset dir="bin" includes="**/*.swc.cache" />
+			<fileset dir="tests/correctness/bin" includes="**/*.swf.cache" />
+			<fileset dir="tests/correctness/bin" includes="**/*.swc.cache" />
+			<fileset dir="tests/performance/bin" includes="**/*.swf.cache" />
+			<fileset dir="tests/performance/bin" includes="**/*.swc.cache" />
+			<fileset dir="tests/performance/alternatives/bin" includes="**/*.swf.cache" />
+			<fileset dir="tests/performance/alternatives/bin" includes="**/*.swc.cache" />
+		</delete>
+	</target>
+</project>
