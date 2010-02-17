@@ -1,0 +1,28 @@
+#summary How to include TurboSignals in your own project
+
+= Introduction =
+
+Below are steps to include TurboSignals in your own project
+
+
+= Details =
+
+==MXMLC or COMPC (command line)==
+
+ * Specify `-library-path+=/path/to/TurboSignals.swc`
+
+==Flex Builder 3==
+
+ * Right-click your project
+ * Click "Properties"
+ * Click "ActionScript Build Path" on the left side
+ * Click the "Library path" tab
+ * Click the "Add SWC..." button
+ * Click the "Browse..." button and choose the TurboSignals SWC
+ * Click OK to close the project properties window
+
+==FlashDevelop 3==
+
+ * Make sure the TurboSignals SWC is in your project view
+ * Right-click the TurboSignals SWC
+ * Click "Add To Library"
