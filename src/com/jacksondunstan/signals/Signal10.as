@@ -37,8 +37,11 @@ package com.jacksondunstan.signals
 		private var __slots:Array = [];
 		
 		/** If we are currently dispatching and haven't copied the __slots list,
-		*** we need to copy it before changes( either add or remove) are made */
+		*** we need to copy it before changes (either add or remove) are made */
 		private var __slotsNeedCopying:Boolean;
+		
+		/** Number of dispatch() calls that are currently calling back listeners */
+		private var __numDispatchesInProgress:uint;
 		
 		/**
 		*   Add a slot to be called during dispatch()
@@ -152,11 +155,16 @@ package com.jacksondunstan.signals
 		{
 			var slots:Array = __slots;
 			__slotsNeedCopying = true;
+			__numDispatchesInProgress++;
 			for (var i:uint = 0, len:uint = slots.length; i < len; ++i)
 			{
 				Slot10(slots[i]).onSignal10(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
 			}
-			__slotsNeedCopying = false;
+			__numDispatchesInProgress--;
+			if (__numDispatchesInProgress == 0)
+			{
+				__slotsNeedCopying = false;
+			}
 		}
 	}
 }
