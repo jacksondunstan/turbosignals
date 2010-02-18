@@ -13,4 +13,4 @@ These articles appeared on [http://jacksondunstan.com JacksonDunstan.com], the w
 
 = Other Sites =
 
- * [http://va.lent.in/blog/2010/02/16/zomg-signals-strike-again1 "ZOMG! Signals strike again!!!!1"] - On the excitement over TurboSignals' release and being careful in adopting it
+ * [http://va.lent.in/blog/2010/02/16/zomg-signals-strike-again1 "ZOMG! Signals strike again!!!!1"] - On the excitement over TurboSignals' release and why you should carefully consider adopting it
