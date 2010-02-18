@@ -10,3 +10,7 @@ Below are articles that have been written about TurboSignals
 These articles appeared on [http://jacksondunstan.com JacksonDunstan.com], the website of the project's creator:
 
  * [http://jacksondunstan.com/articles/585 Introductory Post] – Basics, features, motivation, performance testing and analysis
+
+= Other Sites =
+
+ * [http://va.lent.in/blog/2010/02/16/zomg-signals-strike-again1 "ZOMG! Signals strike again!!!!1"] - On the excitement over TurboSignals' release and being careful in adopting it
